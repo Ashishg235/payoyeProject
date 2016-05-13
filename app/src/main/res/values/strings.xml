@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PayoyeProject</string>
+    <string name="search_by_title">Type Name Of Movie or Video</string>
 </resources>
