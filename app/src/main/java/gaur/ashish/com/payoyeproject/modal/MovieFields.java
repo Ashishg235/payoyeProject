@@ -6,6 +6,15 @@ package gaur.ashish.com.payoyeproject.modal;
 public class MovieFields {
     public static String title, actors, runtime, year, imdbRating, released, genre, plot, poster;
 
+    public static boolean nullOrNot() {
+        String check = getActors() + getGenre() + getImdbRating() + getPlot() + getReleased() + getRuntime() + getTitle() + getYear();
+        if (check != null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static String getTitle() {
         return title;
     }
