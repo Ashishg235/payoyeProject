@@ -34,6 +34,7 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
+
     <EditText
         android:id="@+id/search_edt"
         android:layout_width="match_parent"
@@ -57,5 +58,13 @@
         android:textColor="#fff"
         android:textSize="15sp"
         android:textStyle="italic|bold" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight=".5"
+        android:visibility="gone" />
 
 </LinearLayout>

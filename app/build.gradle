@@ -35,4 +35,5 @@ dependencies {
     compile files('lib/httpclient-4.2.3.jar')
     compile files('lib/httpmime-4.3.jar')
     compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.android.support:palette-v7:23.0.1'
 }

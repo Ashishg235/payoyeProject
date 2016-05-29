@@ -1,4 +1,4 @@
-package gaur.ashish.com.payoyeproject.modal;
+package gaur.ashish.com.payoyeproject.model;
 
 /**
  * Created by Ashish Gaur on 5/13/2016.
@@ -8,11 +8,7 @@ public class MovieFields {
 
     public static boolean nullOrNot() {
         String check = getActors() + getGenre() + getImdbRating() + getPlot() + getReleased() + getRuntime() + getTitle() + getYear();
-        if (check != null) {
-            return false;
-        } else {
-            return true;
-        }
+        return check == null;
     }
 
     public static String getTitle() {

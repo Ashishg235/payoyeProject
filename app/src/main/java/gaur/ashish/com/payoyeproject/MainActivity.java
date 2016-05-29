@@ -2,11 +2,12 @@ package gaur.ashish.com.payoyeproject;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -21,13 +22,14 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import gaur.ashish.com.payoyeproject.modal.MovieFields;
+import gaur.ashish.com.payoyeproject.model.MovieFields;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public String selectedItem;
     MovieFields mf = new MovieFields();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final EditText edt = (EditText) findViewById(R.id.search_edt);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Button btn = (Button) findViewById(R.id.search_btn);
 
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedItem = edt.getText().toString().replace("\\s+", "+");
                 if (selectedItem != null) {
                     new ExecuteTask().execute();
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -55,15 +59,15 @@ public class MainActivity extends AppCompatActivity {
             Map<String, String> map = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<Map<String, String>>() {
             }.getType());
 
-            mf.setTitle(map.get("Title"));
-            mf.setYear(map.get("Year"));
-            mf.setReleased(map.get("Released"));
-            mf.setRuntime(map.get("Runtime"));
-            mf.setGenre(map.get("Genre"));
-            mf.setActors(map.get("Actors"));
-            mf.setPlot(map.get("Plot"));
-            mf.setImdbRating(map.get("imdbRating"));
-            mf.setPoster(map.get("Poster"));
+            MovieFields.setTitle(map.get("Title"));
+            MovieFields.setYear(map.get("Year"));
+            MovieFields.setReleased(map.get("Released"));
+            MovieFields.setRuntime(map.get("Runtime"));
+            MovieFields.setGenre(map.get("Genre"));
+            MovieFields.setActors(map.get("Actors"));
+            MovieFields.setPlot(map.get("Plot"));
+            MovieFields.setImdbRating(map.get("imdbRating"));
+            MovieFields.setPoster(map.get("Poster"));
 
         } catch (JsonIOException | JsonSyntaxException | IOException e) {
             System.out.println(e);
@@ -80,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String jsonObject) {
-            if (!mf.nullOrNot()) {
+            progressBar.setVisibility(View.GONE);
+            if (!MovieFields.nullOrNot()) {
                 Intent intent = new Intent(getApplicationContext(), SearchResultView.class);
                 startActivity(intent);
             } else {
